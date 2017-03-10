@@ -1,2 +1,3 @@
-# karatsuba
-An implementation of the Karatsuba algorithm for fast multiplication of large integers in C.
+# intal
+
+Library in C for integers of arbitrary length. Functions : add, subtract, multiply, divide, exponentiation (positive exponents only).
