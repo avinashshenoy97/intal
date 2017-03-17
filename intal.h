@@ -12,7 +12,6 @@
 // Eg: 2017 is represented with s as "+2017" and n == 4.
 // Eg: -272 is represented with s as "-272" and n == 3.
 typedef struct intal {
-	char sign;	//sign of the integer
 	char *s; //null terminated string of decimal digits preceded by a +/- sign
 	int n; //length of the integer in terms of decimal digits
 } intal;
@@ -28,6 +27,7 @@ void delete_intal(intal** i);
 // Reads an intal from str into intal struct.
 // str should be a null-terminated string just like s inside intal except that
 // a postive integer could start without a + sign.
+// str is unmodified.
 void read_intal(intal* i, char* str);
 
 // Prints the integer into stdout.
@@ -35,31 +35,42 @@ void read_intal(intal* i, char* str);
 // it doesn't print the sign in case of positive integer.
 void print_intal(intal* i);
 
-// Pads the intal's string with preceding 0s.
-//Parameter a_p is modified and nothing is returned.
-void pad(intal **a_p, int len);
+//Compares 2 numbers' absolute values. Returns 1 if first paramter is greater than second and 2 if vice versa.
+//Returns 0 if a is equal to.
+//Parameters a and b are not modified.
+int compare_intal(intal *a, intal *b);
 
-// Checks if the number is 0 and resets the string to a null terminated "+0".
-//Parameter is the intal and is modified appropriately.
-void checkZero(intal **a);
-
-//Creates a copy of the intal i.
-//Paramter copy is not modified.
-intal *copy(intal *i);
+//checks if number is 0, also removes padding.
+//changes i to contain reference of unpadded number.
+void check_zero_intal(intal **i);
 
 // Adds two intals a and b, and returns the sum.
 // Parameters a and b are not modified. Sum is a new intal.
-// e = 0 implies add_intal was called for it's actual purpose. e = 1 implies it was called from subtract_intal due to unequal signs.
-intal* add_intal(intal* a, intal* b, short e);
+intal* add_intal(intal* a, intal* b);
 
 // Subtracts intal b from intal a. That is, finds a-b and returns the answer.
-// Parameters a and b are not modified. a-b is a new intal. Parameter e is to specify entry.
-// e = 0 implies subtract_intal was called for it's actual purpose. e = 1 implies it was called from add_intal due to unequal signs.
-intal* subtract_intal(intal* a, intal* b, short e);
+// Parameters a and b are not modified. a-b is a new intal.
+intal* subtract_intal(intal* a, intal* b);
+
+//Pad's the number with 0s so that it's length, excluding sign, is len.
+//Parameters are not changed but contents referred to by a may change.
+void pad(intal **a, int len);
+
+//splits given number into two halves and places their references in a1 and a2 and returns the length of each half.
+//Parameter a is not modified. a1 and a2 contain the two halves.
+int split_intal(intal *a, intal **a1, intal **a2);
+
+//Multiplies a number by a power of ten, p, and returns it. (p >= 1)
+//Parameters are not changed.
+intal *multiply_intal_powten(intal *a, int p);
 
 // Multiplys two intals a and b, and returns the product.
 // Parameters a and b are not modified. Product is a new intal.
 intal* multiply_intal(intal* a, intal* b);
+
+//Appends number t to the end of a.
+//Parameter t is not modified.
+void strapp(intal *a, intal *t);
 
 // Divides intal a from intal b and returns the quotient. 
 // That is, finds floor(a/b), which is aka integer division.
