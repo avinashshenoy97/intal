@@ -35,13 +35,27 @@ void read_intal(intal* i, char* str);
 // it doesn't print the sign in case of positive integer.
 void print_intal(intal* i);
 
+// Pads the intal's string with preceding 0s.
+//Parameter a_p is modified and nothing is returned.
+void pad(intal **a_p, int len);
+
+// Checks if the number is 0 and resets the string to a null terminated "+0".
+//Parameter is the intal and is modified appropriately.
+void checkZero(intal **a);
+
+//Creates a copy of the intal i.
+//Paramter copy is not modified.
+intal *copy(intal *i);
+
 // Adds two intals a and b, and returns the sum.
 // Parameters a and b are not modified. Sum is a new intal.
-intal* add_intal(intal* a, intal* b);
+// e = 0 implies add_intal was called for it's actual purpose. e = 1 implies it was called from subtract_intal due to unequal signs.
+intal* add_intal(intal* a, intal* b, short e);
 
 // Subtracts intal b from intal a. That is, finds a-b and returns the answer.
-// Parameters a and b are not modified. a-b is a new intal.
-intal* subtract_intal(intal* a, intal* b);
+// Parameters a and b are not modified. a-b is a new intal. Parameter e is to specify entry.
+// e = 0 implies subtract_intal was called for it's actual purpose. e = 1 implies it was called from add_intal due to unequal signs.
+intal* subtract_intal(intal* a, intal* b, short e);
 
 // Multiplys two intals a and b, and returns the product.
 // Parameters a and b are not modified. Product is a new intal.
